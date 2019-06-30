@@ -1,0 +1,29 @@
+{
+    "tipo_combustible": 
+    [
+        {
+            "valor": "S",
+            "descripcion": "Super"
+        },
+        {
+            "valor": "R",
+            "descripcion": "Regular"
+        },
+        {
+            "valor": "D",
+            "descripcion": "Diesel"
+        }
+    ],
+    "total_bomba_manguera": 8,
+    "tipo_empleado": 
+    [
+        {
+            "valor": "supervisor",
+            "descripcion": "Supervisor"
+        },
+        {
+            "valor": "despachador",
+            "descripcion": "Despachador"
+        }
+    ]
+}
