@@ -14,7 +14,7 @@ module.exports = function () {
           db.collection("administradores").findOne({ usuario: login.usuario, contrasena: login.password }, (err, resultado) => {
             client.close();
             if (resultado) {
-              resolve({ usuario: resultado.usuario, rol: "admin" });
+              resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "admin" });
             } else {
               resolve(null);
             }
@@ -31,7 +31,7 @@ module.exports = function () {
           db.collection("usuarios").findOne({ usuario: login.usuario, contrasena: login.password }, (err, resultado) => {
             client.close();
             if (resultado) {
-              resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_empleado, rol: "supervisor" });
+              resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "supervisor" });
             } else {
               resolve(null);
             }
@@ -45,33 +45,58 @@ module.exports = function () {
         assert.equal(null, err);
         const db = client.db(config.database);
         if (req.body.tipoAcceso === 'admin') {
-          db.collection('administradores').findOne({ usuario: req.body.codigoEmpleado }, (err, resultado) => {
+          db.collection("administradores").update({ codigo_usuario: req.body.codigoUsuario }, { usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.secret) }, { upsert: true }, (err, resultado) => {
+            if (err) {
+              res.status(200).send({ estado: -1, mensaje: "Error al guardar usuario" });
+            }
             if (resultado) {
-              client.close();
-              res.status(200).send({estado: -1, mensaje: "Usuario ya existe"});
+              res.status(200).send({ estado: 1, mensaje: "Usuario actualizado correctamente" });
             } else {
-              db.collections('administradores').insertOne({ codigoEmpleado: req.body.codigoEmpleado, usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.secret) }, (err, resultado) => {
-                client.close();
-                if (err) {
-                  res.status(200).send({estado: -1, mensaje: "Error al guardar usuario"});
-                }
-                res.status(200).send({estado: 1, mensaje: "Usuario guardado exitosamente"});
-              });
+              res.status(200).send({ estado: -1, mensaje: "Error al guardar usuario" });
             }
           });
         } else if (req.body.tipoAcceso === 'supervisor') {
-          db.collection('usuarios').findOne({ usuario: req.body.usuario }, (err, resultado) => {
+          db.collection("usuarios").update({ codigo_usuario: req.body.codigoUsuario }, { usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.secret) }, { upsert: true }, (err, resultado) => {
+            if (err) {
+              res.status(200).send({ estado: -1, mensaje: "Error al guardar usuario" });
+            }
             if (resultado) {
-              client.close();
-              res.status(200).send({estado: -1, mensaje: "Usuario ya existe"});
+              res.status(200).send({ estado: 1, mensaje: "Usuario actualizado correctamente" });
             } else {
-              db.collections('usuarios').insertOne({ codigoEmpleado: req.body.codigoEmpleado, usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.secret) }, (err, resultado) => {
-                client.close();
-                if (err) {
-                  res.status(200).send({estado: -1, mensaje: "Error al guardar usuario"});
-                }
-                res.status(200).send({estado: 1, mensaje: "Usuario guardado exitosamente"});
-              });
+              res.status(200).send({ estado: -1, mensaje: "Error al guardar usuario" });
+            }
+          });
+        }
+      });
+    },
+    obtenerUsuario: function (req, res) {
+      console.log(req.body);
+      const client = new MongoClient(config.mongo, { useNewUrlParser: true });
+      client.connect(function (err) {
+        assert.equal(null, err);
+        const db = client.db(config.database);
+        if (req.body.tipoAcceso === 'admin') {
+          db.collection("administradores").findOne({ codigo_usuario: req.body.codigoUsuario }, (err, resultado) => {
+            if (err) {
+              client.close();
+              res.status(200).send({ estado: -1, mensaje: "Error al consultar usuario" });
+            }
+            if (resultado) {
+              res.status(200).send({ estado: 1, usuario: resultado.usuario });
+            } else {
+              res.status(200).send({ estado: -1, mensaje: "Error usuario no encontrado" });
+            }
+          });
+        } else if (req.body.tipoAcceso === 'supervisor') {
+          db.collection("usuarios").findOne({ codigo_usuario: req.body.codigoUsuario }, (err, resultado) => {
+            if (err) {
+              client.close();
+              res.status(200).send({ estado: -1, mensaje: "Error al consultar usuario" });
+            }
+            if (resultado) {
+              res.status(200).send({ estado: 1, usuario: resultado.usuario });
+            } else {
+              res.status(200).send({ estado: -1, mensaje: "Error usuario no encontrado" });
             }
           });
         }

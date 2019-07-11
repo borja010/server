@@ -1,8 +1,8 @@
 module.exports = { 
-	user: 'postgres',
-	host: '127.0.0.1',
+	user: 'admin',
+	host: 'localhost',
 	database: 'sistrac',
-	password: 'borja.010',
+	password: 'admin.sistrac**',
 	port: 5432,
 	mongo: 'mongodb://localhost:27017',
 	secret: 'ElonMusk'

@@ -26,6 +26,7 @@ router.post('/api/frontend/obtenerClientesSaldos/', frontend.obtenerClientesSald
 router.post('/api/frontend/obtenerTransaccionesCliente/', frontend.obtenerTransaccionesCliente);
 router.post('/api/frontend/obtenerTotalTransaccionesCliente/', frontend.obtenerTotalTransaccionesCliente);
 router.post('/api/frontend/guardarUsuario/', mongo.guardarUsuario);
+router.post('/api/frontend/obtenerUsuario/', mongo.obtenerUsuario);
 
 router.post('/api/movil/obtenerClientes/', movil.obtenerClientes);
 router.post('/api/movil/obtenerEmpleados/', movil.obtenerEmpleados);
