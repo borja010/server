@@ -40,7 +40,7 @@ router.post('/api/verificarUsuario', manejador.verificarUsuario);
 router.post('/login/', manejador.autenticar);
 
 router.get('/',  function (req, res) {
-    res.send({mensaje: "hola mundo"});
+    res.status(200).send("hola mundo");
 });
 
 module.exports = router;
