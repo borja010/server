@@ -70,7 +70,7 @@ module.exports = function () {
       });
     },
     obtenerUsuario: function (req, res) {
-      console.log(req.body);
+      console.log("cuerpo", req.body);
       const client = new MongoClient(config.mongo, { useNewUrlParser: true });
       client.connect(function (err) {
         assert.equal(null, err);
