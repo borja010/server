@@ -40,12 +40,13 @@ module.exports = function () {
       })
     },
     guardarUsuario: function (req, res) {
+      console.log("cuerpo", req.body);
       const client = new MongoClient(config.mongo, { useNewUrlParser: true });
       client.connect(function (err) {
         assert.equal(null, err);
         const db = client.db(config.database);
         if (req.body.tipoAcceso === 'admin') {
-          db.collection("administradores").update({ codigo_usuario: req.body.codigoUsuario }, { usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.salt) }, { upsert: true }, (err, resultado) => {
+          db.collection("administradores").updateOne({ codigo_usuario: req.body.codigoUsuario }, { usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.salt) }, { upsert: true }, (err, resultado) => {
             if (err) {
               res.status(200).send({ estado: -1, mensaje: "Error al guardar usuario" });
             }
@@ -56,7 +57,7 @@ module.exports = function () {
             }
           });
         } else if (req.body.tipoAcceso === 'supervisor') {
-          db.collection("usuarios").update({ codigo_usuario: req.body.codigoUsuario }, { usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.salt) }, { upsert: true }, (err, resultado) => {
+          db.collection("usuarios").updateOne({ codigo_usuario: req.body.codigoUsuario }, { usuario: req.body.usuario, contrasena: bcrypt.hashSync(req.body.password, config.salt) }, { upsert: true }, (err, resultado) => {
             if (err) {
               res.status(200).send({ estado: -1, mensaje: "Error al guardar usuario" });
             }
