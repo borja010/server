@@ -46,6 +46,8 @@ module.exports = function () {
         const db = client.db(config.database);
         if (req.body.tipoAcceso === 'admin') {
           db.collection("administradores").findOne({ usuario: req.body.usuario }, (err, resultado) => {
+            console.log(resultado);
+            console.log(req.body);
             if (resultado && resultado.codigo_usuario != req.body.codigoUsuario) {
               res.status(200).send({ estado: 2, mensaje: "Nombre de usuario ya existe" });
             } else {
