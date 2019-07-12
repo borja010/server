@@ -11,10 +11,20 @@ module.exports = function () {
         client.connect(function (err) {
           assert.equal(null, err);
           const db = client.db(config.database);
-          db.collection("administradores").findOne({ usuario: login.usuario, contrasena: login.password }, (err, resultado) => {
+          db.collection("administradores").findOne({ usuario: login.usuario }, (err, resultado) => {
             client.close();
             if (resultado) {
-              resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "admin" });
+              bcrypt.compare(login.password, resultado.contrasena, function (err, res) {
+                if (err) {
+                  resolve(null);
+                }
+                console.log(res);
+                if (res) {
+                  resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "admin" });
+                } else {
+                  resolve(null);
+                }
+              });
             } else {
               resolve(null);
             }
@@ -28,10 +38,20 @@ module.exports = function () {
         client.connect(function (err) {
           assert.equal(null, err);
           const db = client.db(config.database);
-          db.collection("usuarios").findOne({ usuario: login.usuario, contrasena: login.password }, (err, resultado) => {
+          db.collection("usuarios").findOne({ usuario: login.usuario }, (err, resultado) => {
             client.close();
             if (resultado) {
-              resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "supervisor" });
+              bcrypt.compare(login.password, resultado.contrasena, function (err, res) {
+                if (err) {
+                  resolve(null);
+                }
+                console.log(res);
+                if (res) {
+                  resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "supervisor" });
+                } else {
+                  resolve(null);
+                }
+              });
             } else {
               resolve(null);
             }
@@ -46,8 +66,6 @@ module.exports = function () {
         const db = client.db(config.database);
         if (req.body.tipoAcceso === 'admin') {
           db.collection("administradores").findOne({ usuario: req.body.usuario }, (err, resultado) => {
-            console.log(resultado);
-            console.log(req.body);
             if (resultado && resultado.codigo_usuario != req.body.codigoUsuario) {
               res.status(200).send({ estado: 2, mensaje: "Nombre de usuario ya existe" });
             } else {
