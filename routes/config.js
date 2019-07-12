@@ -5,5 +5,6 @@ module.exports = {
 	password: 'admin.sistrac**',
 	port: 5432,
 	mongo: 'mongodb://localhost:27017',
-	secret: 'ElonMusk'
+	secret: 'ElonMusk',
+	salt: 10
 };
