@@ -25,8 +25,8 @@ var validarToken = async function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors());
-app.all('/api/*', validarToken);
-app.use('/', require('./routes'));
+app.all('/api/seguro/*', validarToken);
+app.use('/api/', require('./routes'));
 
 servidor.listen(8080, function () {
 	console.log("Servidor iniciado en el puerto 8080");
