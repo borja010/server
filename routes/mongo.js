@@ -18,7 +18,6 @@ module.exports = function () {
                 if (err) {
                   resolve(null);
                 }
-                console.log(res);
                 if (res) {
                   resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "admin" });
                 } else {
@@ -45,7 +44,6 @@ module.exports = function () {
                 if (err) {
                   resolve(null);
                 }
-                console.log(res);
                 if (res) {
                   resolve({ usuario: resultado.usuario, codigo_usuario: resultado.codigo_usuario, rol: "supervisor" });
                 } else {
