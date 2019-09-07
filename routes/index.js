@@ -1,10 +1,11 @@
-var express  = require('express');
+var express = require('express');
 var router = express.Router();
 var ejecutar_consulta = require('./ejecutor.js')();
 const movil = require('./movil.js')(ejecutar_consulta);
 const frontend = require('./frontend.js')(ejecutar_consulta);
 const manejador = require('./manejador.js')();
 const mongo = require('./mongo.js')();
+const google = require('./google.js')();
 
 router.post('/seguro/frontend/obtenerClientes/', frontend.obtenerClientes);
 router.post('/seguro/frontend/obtenerClientesTotal/', frontend.obtenerClientesTotal);
@@ -35,11 +36,13 @@ router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
 router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
 
+router.post('/seguro/google/subirImage/', google.subirImagen);
+
 router.post('/seguro/verificarUsuario', manejador.verificarUsuario);
 
 router.post('/login/', manejador.autenticar);
 
-router.get('/',  function (req, res) {
+router.get('/', function (req, res) {
     res.status(200).send("hola mundo");
 });
 
