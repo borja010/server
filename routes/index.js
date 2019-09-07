@@ -38,7 +38,7 @@ router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
 
 router.post('/seguro/google/subirImage/', google.subirImagen);
 
-router.post('/seguro/verificarUsuario', manejador.verificarUsuario);
+router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
 
 router.post('/login/', manejador.autenticar);
 
