@@ -1,15 +1,17 @@
-const { googleapis } = require('googleapis');
+const { google } = require('googleapis');
+const fs = require('fs');
 
 module.exports = function () {
-    var google = {
+    var googleapis = {
         subirImagen: function (req, res) {
-            const drive = googleapis.drive({ version: "v3" });
+            console.log(req.file);
+            const drive = google.drive({ version: "v3" });
             var fileMetadata = {
-                'name': req.body.name
+                'name': "prueba"
             };
             var media = {
                 mimeType: 'image/jpeg',
-                body: req.body.image
+                body: fs.createReadStream(req.file.path)
             };
             drive.files.create({
                 resource: fileMetadata,
@@ -26,5 +28,5 @@ module.exports = function () {
             })
         }
     }
-    return google;
+    return googleapis;
 }

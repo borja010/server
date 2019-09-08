@@ -5,7 +5,9 @@ const movil = require('./movil.js')(ejecutar_consulta);
 const frontend = require('./frontend.js')(ejecutar_consulta);
 const manejador = require('./manejador.js')();
 const mongo = require('./mongo.js')();
-const google = require('./google.js')();
+const googleapis = require('./google.js')();
+var multer = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 router.post('/seguro/frontend/obtenerClientes/', frontend.obtenerClientes);
 router.post('/seguro/frontend/obtenerClientesTotal/', frontend.obtenerClientesTotal);
@@ -36,7 +38,7 @@ router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
 router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
 
-router.post('/seguro/google/subirImage/', google.subirImagen);
+router.post('/seguro/google/subirImage/', upload.single('picture'), googleapis.subirImagen);
 
 router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
 
