@@ -46,6 +46,7 @@ router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
 router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
 
+let upload = multer({ storage: storage });
 router.post('/seguro/google/subirImage/', upload.single("file"), googleapis.subirImagen);
 
 router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
