@@ -8,11 +8,11 @@ const { google } = require('googleapis');
 const fs = require('fs');
 const credentials = require('./credentials.json');
 const scopes = [
-  'https://www.googleapis.com/auth/drive'
+	'https://www.googleapis.com/auth/drive'
 ];
 
 var validarToken = async function (req, res, next) {
-	
+
 	if (!req.headers.authorization) {
 		return res.status(401).send({ message: 'Se necesita token de autenticacion' });
 	}
@@ -31,12 +31,13 @@ var validarToken = async function (req, res, next) {
 const auth = new google.auth.JWT(
 	credentials.client_email, null,
 	credentials.private_key, scopes
-  );
+);
 
-subirImagen = function(){
+subirImagen = function () {
 	const drive = google.drive({ version: "v3", auth });
 	var fileMetadata = {
-		'name': "prueba"
+		name: "prueba",
+		parents: ['1c6Hp1hcEEfqq7slLuXu1UK0ZAC2Wlu3G']
 	};
 	var media = {
 		mimeType: 'image/jpeg',
@@ -50,8 +51,9 @@ subirImagen = function(){
 	}, (err, file) => {
 		if (err) {
 			console.log(err);
+		} else {
+			console.log(file);
 		}
-		console.log(file.id);
 	});
 };
 
