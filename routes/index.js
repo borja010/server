@@ -49,7 +49,7 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage }).single("file");
 
-router.post('/seguro/google/subirImage/', upload, googleapis.subirImagen);
+router.post('/seguro/google/subirImage/', googleapis.subirImagen);
 
 router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
 
