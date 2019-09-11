@@ -8,6 +8,15 @@ const mongo = require('./mongo.js')();
 const googleapis = require('./google.js')();
 var multer = require('multer');
 
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname)
+    }
+});
+
 router.post('/seguro/frontend/obtenerClientes/', frontend.obtenerClientes);
 router.post('/seguro/frontend/obtenerClientesTotal/', frontend.obtenerClientesTotal);
 router.post('/seguro/frontend/insertarCliente/', frontend.insertarCliente);
@@ -37,7 +46,7 @@ router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
 router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
 
-router.post('/seguro/google/subirImage/', googleapis.subirImagen);
+router.post('/seguro/google/subirImage/', upload.single("file"), googleapis.subirImagen);
 
 router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
 
