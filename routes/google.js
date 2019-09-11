@@ -5,8 +5,7 @@ module.exports = function () {
     var googleapis = {
         subirImagen: function (req, res) {
             console.log(req.file);
-            console.log(req.body);
-            const drive = google.drive({ version: "v3" });
+            const drive = google.drive();
             var fileMetadata = {
                 'name': "prueba"
             };
