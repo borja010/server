@@ -37,18 +37,6 @@ router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
 router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
 
-var storage = multer.diskStorage({
-    destination: function (req, file, callback) {
-        callback(null, './uploads');
-    },
-    filename: function (req, file, callback) {
-        console.log(file);
-        callback(null, file.fieldname);
-    }
-});
-
-var upload = multer({ storage: storage }).single("file");
-
 router.post('/seguro/google/subirImage/', googleapis.subirImagen);
 
 router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
