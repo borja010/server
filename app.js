@@ -42,6 +42,7 @@ subirImagen = function(){
 		mimeType: 'image/jpeg',
 		body: fs.createReadStream("./uploads/file")
 	};
+	console.log(media);
 	drive.files.create({
 		resource: fileMetadata,
 		media: media,
@@ -49,7 +50,8 @@ subirImagen = function(){
 	}, (err, file) => {
 		if (err) {
 			console.log(err);
-		} 
+		}
+		console.log(file.id);
 	});
 };
 
