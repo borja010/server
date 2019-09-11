@@ -7,9 +7,6 @@ var manejador = require('./routes/manejador.js')();
 const { google } = require('googleapis');
 const fs = require('fs');
 const credentials = require('./credentials.json');
-const scopes = [
-	'https://www.googleapis.com/auth/drive'
-];
 
 var validarToken = async function (req, res, next) {
 
