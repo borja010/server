@@ -6,6 +6,10 @@ var cors = require('cors');
 var manejador = require('./routes/manejador.js')();
 const { google } = require('googleapis');
 const fs = require('fs');
+const credentials = require('./credentials.json');
+const scopes = [
+  'https://www.googleapis.com/auth/drive'
+];
 
 var validarToken = async function (req, res, next) {
 	
@@ -24,8 +28,13 @@ var validarToken = async function (req, res, next) {
 	}
 };
 
+const auth = new google.auth.JWT(
+	credentials.client_email, null,
+	credentials.private_key, scopes
+  );
+
 subirImagen = function(){
-	const drive = google.drive({ version: "v3" });
+	const drive = google.drive({ version: "v3", auth });
 	var fileMetadata = {
 		'name': "prueba"
 	};
