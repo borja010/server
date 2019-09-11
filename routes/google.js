@@ -4,8 +4,7 @@ const fs = require('fs');
 module.exports = function () {
     var googleapis = {
         subirImagen: function (req, res) {
-            console.log(req.file);
-            const drive = google.drive();
+            const drive = google.drive({ version: "v3" });
             var fileMetadata = {
                 'name': "prueba"
             };
