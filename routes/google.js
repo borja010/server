@@ -1,6 +1,6 @@
 const { google } = require('googleapis');
 const fs = require('fs');
-const credentials = require('./credentials.json');
+const credentials = require('../credentials.json');
 const scopes = [
     'https://www.googleapis.com/auth/drive'
 ];
