@@ -1,7 +1,7 @@
 module.exports = function (ejecutar_consulta) {
 	var movil = {
 		obtenerClientes: function (req, res) {
-			var consulta = "SELECT c.codigo_cliente, CONCAT(nombres,' ', apellido1, ' ', apellido2) nombres  FROM cliente c WHERE c.existe = true";
+			var consulta = "SELECT c.codigo_cliente, CONCAT(c.nombres,' ', c.apellido1, ' ', c.apellido2) nombres  FROM cliente c WHERE c.existe = true";
 			var parametros = [];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data);
@@ -35,9 +35,30 @@ module.exports = function (ejecutar_consulta) {
 				res.status(200).send(data);
 			});
 		},
-		insertarCredito: function (req, res) {
-			var consulta = "INSERT INTO credito(tipo_transaccion, monto, descripcion, empleado, cliente, fecha, hora) VALUES ($1, $2, $3, $4, $5, current_timestamp, current_timestamp)";
-			var parametros = [req.body.tipo_transaccion, req.body.monto, req.body.descripcion, req.body.empleado, req.body.cliente];
+		insertarVale: function (req, res) {
+			var consulta = "select insertar_vale($1, $2, $3, $4, $5, $6)";
+			var parametros = [req.body.numero, req.body.cliente, req.body.monto, req.body.empleado, req.body.descripcion, "pendiente"];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data);
+			});
+		},
+		eliminarVale: function (req, res) {
+			var consulta = "delete from vale where codigo_vale = $1";
+			var parametros = [req.body.vale];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data);
+			});
+		},
+		insertarPago: function (req, res) {
+			var consulta = "select insertar_pago($1, $2, $3, $4)";
+			var parametros = [req.body.monto, req.body.vale, req.body.empleado, req.body.descripcion];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data);
+			});
+		},
+		obtenerVales: function (req, res) {
+			var consulta = "select v.codigo_vale, v.monto, v.estado, (select sum(monto) from pago where vale = v.codigo_vale) pagos concat(c.nombres,' ', c.apellido1, ' ', c.apellido2) from vale v inner join cliente c on v.cliente = c.codigo_cliente where v.numero = $1";
+			var parametros = [req.body.numero];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data);
 			});
