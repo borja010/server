@@ -29,6 +29,5 @@ app.all('/api/seguro/*', validarToken);
 app.use('/api/', require('./routes'));
 
 servidor.listen(8080, function () {
-	subirImagen();
 	console.log("Servidor iniciado en el puerto 8080");
 });

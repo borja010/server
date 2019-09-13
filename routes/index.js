@@ -44,7 +44,10 @@ router.post('/seguro/movil/obtenerEmpleados/', movil.obtenerEmpleados);
 router.post('/seguro/movil/insertarEntradaSalida/', movil.insertarEntradaSalida);
 router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
-router.post('/seguro/movil/insertarCredito/', movil.insertarCredito);
+router.post('/seguro/movil/insertarVale/', movil.insertarVale);
+router.post('/seguro/movil/eliminarVale/', movil.eliminarVale);
+router.post('/seguro/movil/insertarPago/', movil.insertarPago);
+router.post('/seguro/movil/obtenerVale/', movil.obtenerVale);
 
 let upload = multer({ storage: storage });
 router.post('/seguro/google/subirImage/', upload.single("file"), googleapis.subirImagen);
