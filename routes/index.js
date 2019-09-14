@@ -13,7 +13,8 @@ var storage = multer.diskStorage({
         cb(null, './uploads')
     },
     filename: function (req, file, cb) {
-        cb(null, file.fieldname)
+        console.log(file);
+        cb(null, file.originalname)
     }
 });
 
@@ -50,7 +51,7 @@ router.post('/seguro/movil/insertarPago/', movil.insertarPago);
 router.post('/seguro/movil/obtenerVale/', movil.obtenerVale);
 
 let upload = multer({ storage: storage });
-router.post('/seguro/google/subirImage/', upload.any(), googleapis.subirImagen);
+router.post('/seguro/google/subirImage/', upload.single("file"), googleapis.subirImagen);
 
 router.post('/seguro/verificarUsuario/', manejador.verificarUsuario);
 
