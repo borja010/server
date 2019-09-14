@@ -37,7 +37,7 @@ module.exports = function (ejecutar_consulta) {
 		},
 		insertarVale: function (req, res) {
 			var consulta = "select insertar_vale($1, $2, $3, $4, $5, $6)";
-			var parametros = [req.body.numero, req.body.cliente, req.body.monto, req.body.empleado, req.body.descripcion, "pendiente"];
+			var parametros = [req.body.numero, req.body.cliente, req.body.monto, req.body.empleado, req.body.descripcion, "Pendiente"];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data);
 			});
