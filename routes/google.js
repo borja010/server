@@ -13,7 +13,6 @@ module.exports = function () {
                 credentials.private_key, scopes
             );
             const drive = google.drive({ version: 'v3', auth });
-            console.log(req.body);
             var fileMetadata = {
                 name: req.body.name,
                 parents: ['1c6Hp1hcEEfqq7slLuXu1UK0ZAC2Wlu3G']
@@ -32,7 +31,6 @@ module.exports = function () {
                     console.log(err);
                 } else {
                     res.status(200).send({ estado: 1, mensaje: "Imagen insertada correctamente", id: file.id });
-                    console.log(file.id);
                 }
             })
         }
