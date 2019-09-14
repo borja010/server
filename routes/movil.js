@@ -57,7 +57,7 @@ module.exports = function (ejecutar_consulta) {
 			});
 		},
 		obtenerVale: function (req, res) {
-			var consulta = "select v.codigo_vale, v.monto, v.estado, (select sum(monto) from pago where vale = v.codigo_vale) pagos concat(c.nombres,' ', c.apellido1, ' ', c.apellido2) from vale v inner join cliente c on v.cliente = c.codigo_cliente where v.numero = $1";
+			var consulta = "select v.codigo_vale, v.monto, v.estado, (select sum(monto) from pago where vale = v.codigo_vale) pagos, concat(c.nombres,' ', c.apellido1, ' ', c.apellido2) nombres from vale v inner join cliente c on v.cliente = c.codigo_cliente where v.numero = $1";
 			var parametros = [req.body.numero];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data);
