@@ -129,14 +129,14 @@ module.exports = function (ejecutar_consulta) {
 		},
 		obtenerPagos: function (req, res) {
 			var consulta = "SELECT p.descripcion, p.monto, p.fecha, p.hora, CONCAT(e.nombres,' ', e.apellido1, ' ', e.apellido2) nombres_empleado FROM pago p INNER JOIN empleado e ON p.empleado = e.codigo_empleado WHERE p.vale = $1 ORDER BY p.codigo_pago ASC LIMIT $2 OFFSET $3";
-			var parametros = [req.body.codigo_vale_v, req.body.limit, req.body.offset];
+			var parametros = [req.body.codigo_vale, req.body.limit, req.body.offset];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
 			});
 		},
 		obtenerTotalPagos: function (req, res) {
 			var consulta = "SELECT COUNT(1) FROM (SELECT p.descripcion, p.monto, p.fecha, p.hora, CONCAT(e.nombres,' ', e.apellido1, ' ', e.apellido2) nombres_empleado FROM pago p INNER JOIN empleado e ON p.empleado = e.codigo_empleado WHERE p.vale = $1 ORDER BY p.codigo_pago ASC)";
-			var parametros = [req.body.codigo_vale_v];
+			var parametros = [req.body.codigo_vale];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
 			});
