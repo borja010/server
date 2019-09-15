@@ -122,7 +122,7 @@ module.exports = function (ejecutar_consulta) {
 		},
 		obtenerVales: function (req, res) {
 			var consulta = "SELECT * FROM vales($1,$2,$3)";
-			var parametros = [req.body.fecha_inicio, req.body.fecha_final, req.body.vales];
+			var parametros = [req.body.fecha_inicio, req.body.fecha_final, req.body.estado];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
 			});
