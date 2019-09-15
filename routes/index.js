@@ -36,11 +36,12 @@ router.post('/seguro/frontend/obtenerEntradaSalidaFechas/', frontend.obtenerEntr
 router.post('/seguro/frontend/obtenerClientesSaldos/', frontend.obtenerClientesSaldos);
 router.post('/seguro/frontend/obtenerTransaccionesCliente/', frontend.obtenerTransaccionesCliente);
 router.post('/seguro/frontend/obtenerTotalTransaccionesCliente/', frontend.obtenerTotalTransaccionesCliente);
+router.post('/seguro/frontend/obtenerVales/', frontend.obtenerVales);
+router.post('/seguro/frontend/obtenerPagos/', frontend.obtenerPagos);
+router.post('/seguro/frontend/obtenerValesCliente/', frontend.obtenerValesCliente);
+
 router.post('/seguro/frontend/guardarUsuario/', mongo.guardarUsuario);
 router.post('/seguro/frontend/obtenerUsuario/', mongo.obtenerUsuario);
-router.post('/seguro/frontend/obtenerVales/', mongo.obtenerVales);
-router.post('/seguro/frontend/obtenerPagos/', mongo.obtenerPagos);
-router.post('/seguro/frontend/obtenerValesCliente/', mongo.obtenerValesCliente);
 
 router.post('/seguro/movil/obtenerClientes/', movil.obtenerClientes);
 router.post('/seguro/movil/obtenerEmpleados/', movil.obtenerEmpleados);
