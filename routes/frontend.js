@@ -135,7 +135,7 @@ module.exports = function (ejecutar_consulta) {
 			});
 		},
 		obtenerTotalPagos: function (req, res) {
-			var consulta = "SELECT COUNT(1) FROM (SELECT p.descripcion, p.monto, p.fecha, p.hora, CONCAT(e.nombres,' ', e.apellido1, ' ', e.apellido2) nombres_empleado FROM pago p INNER JOIN empleado e ON p.empleado = e.codigo_empleado WHERE p.vale = $1 ORDER BY p.codigo_pago ASC)";
+			var consulta = "SELECT COUNT(1) FROM (SELECT p.descripcion, p.monto, p.fecha, p.hora, CONCAT(e.nombres,' ', e.apellido1, ' ', e.apellido2) nombres_empleado FROM pago p INNER JOIN empleado e ON p.empleado = e.codigo_empleado WHERE p.vale = $1 ORDER BY p.codigo_pago ASC)a";
 			var parametros = [req.body.codigo_vale];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
@@ -149,7 +149,7 @@ module.exports = function (ejecutar_consulta) {
 			});
 		},
 		obtenerTotalValesCliente: function (req, res) {
-			var consulta = "SELECT COUNT(1) FROM (SELECT * FROM vale WHERE cliente = $1 ORDER BY codigo_vale ASC)";
+			var consulta = "SELECT COUNT(1) FROM (SELECT * FROM vale WHERE cliente = $1 ORDER BY codigo_vale ASC)a";
 			var parametros = [req.body.cliente];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
