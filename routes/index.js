@@ -33,9 +33,6 @@ router.post('/seguro/frontend/obtenerAnalogasFechas/', frontend.obtenerAnalogasF
 router.post('/seguro/frontend/obtenerDigitalesFechas/', frontend.obtenerDigitalesFechas);
 router.post('/seguro/frontend/obtenerPrecioFechas/', frontend.obtenerPrecioFechas);
 router.post('/seguro/frontend/obtenerEntradaSalidaFechas/', frontend.obtenerEntradaSalidaFechas);
-router.post('/seguro/frontend/obtenerClientesSaldos/', frontend.obtenerClientesSaldos);
-router.post('/seguro/frontend/obtenerTransaccionesCliente/', frontend.obtenerTransaccionesCliente);
-router.post('/seguro/frontend/obtenerTotalTransaccionesCliente/', frontend.obtenerTotalTransaccionesCliente);
 router.post('/seguro/frontend/obtenerVales/', frontend.obtenerVales);
 router.post('/seguro/frontend/obtenerPagos/', frontend.obtenerPagos);
 router.post('/seguro/frontend/obtenerValesCliente/', frontend.obtenerValesCliente);
@@ -49,7 +46,6 @@ router.post('/seguro/movil/insertarEntradaSalida/', movil.insertarEntradaSalida)
 router.post('/seguro/movil/insertarDigital/', movil.insertarDigital);
 router.post('/seguro/movil/insertarAnaloga/', movil.insertarAnaloga);
 router.post('/seguro/movil/insertarVale/', movil.insertarVale);
-router.post('/seguro/movil/eliminarVale/', movil.eliminarVale);
 router.post('/seguro/movil/insertarPago/', movil.insertarPago);
 router.post('/seguro/movil/obtenerVale/', movil.obtenerVale);
 

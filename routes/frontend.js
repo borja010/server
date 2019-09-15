@@ -134,8 +134,22 @@ module.exports = function (ejecutar_consulta) {
 				res.status(200).send(data.rows);
 			});
 		},
+		obtenerTotalPagos: function (req, res) {
+			var consulta = "SELECT COUNT(1) FROM (SELECT * FROM pago WHERE vale = $1 ORDER BY codigo_pago ASC LIMIT $2 OFFSET $3)";
+			var parametros = [req.body.codigo_vale_v, req.body.limit, req.body.offset];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
 		obtenerValesCliente: function (req, res) {
 			var consulta = "SELECT * FROM vale WHERE cliente = $1 ORDER BY codigo_vale ASC LIMIT $2 OFFSET $3";
+			var parametros = [req.body.cliente, req.body.limit, req.body.offset];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		obtenerTotalValesCliente: function (req, res) {
+			var consulta = "SELECT COUNT(1) FROM (SELECT * FROM vale WHERE cliente = $1 ORDER BY codigo_vale ASC LIMIT $2 OFFSET $3)";
 			var parametros = [req.body.cliente, req.body.limit, req.body.offset];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
