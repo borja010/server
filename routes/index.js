@@ -35,7 +35,9 @@ router.post('/seguro/frontend/obtenerPrecioFechas/', frontend.obtenerPrecioFecha
 router.post('/seguro/frontend/obtenerEntradaSalidaFechas/', frontend.obtenerEntradaSalidaFechas);
 router.post('/seguro/frontend/obtenerVales/', frontend.obtenerVales);
 router.post('/seguro/frontend/obtenerPagos/', frontend.obtenerPagos);
+router.post('/seguro/frontend/obtenerTotalPagos/', frontend.obtenerTotalPagos);
 router.post('/seguro/frontend/obtenerValesCliente/', frontend.obtenerValesCliente);
+router.post('/seguro/frontend/obtenerTotalValesCliente/', frontend.obtenerTotalValesCliente);
 
 router.post('/seguro/frontend/guardarUsuario/', mongo.guardarUsuario);
 router.post('/seguro/frontend/obtenerUsuario/', mongo.obtenerUsuario);
