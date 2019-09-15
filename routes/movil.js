@@ -42,13 +42,6 @@ module.exports = function (ejecutar_consulta) {
 				res.status(200).send(data);
 			});
 		},
-		eliminarVale: function (req, res) {
-			var consulta = "delete from vale where codigo_vale = $1";
-			var parametros = [req.body.vale];
-			ejecutar_consulta.exec(consulta, parametros, function (data) {
-				res.status(200).send(data);
-			});
-		},
 		insertarPago: function (req, res) {
 			var consulta = "select insertar_pago($1, $2, $3, $4)";
 			var parametros = [req.body.monto, req.body.vale, req.body.empleado, req.body.descripcion];
