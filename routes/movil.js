@@ -71,6 +71,7 @@ module.exports = function (ejecutar_consulta) {
 						salidas.push([element.mecanicas, element.precio, req.body.empleado, element.codigo_manguera]);
 					}
 				});
+				console.log(salidas);
 				insertRecursivo(0, consulta, salidas, res);
 			}
 		},
