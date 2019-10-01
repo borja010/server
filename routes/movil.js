@@ -2,7 +2,7 @@ module.exports = function (ejecutar_consulta) {
 
 	function insertRecursivo(index, query, params, res) {
 		if (index < params.length) {
-			queryexec.exec(query, params[index], function (data) {
+			ejecutar_consulta.exec(query, params[index], function (data) {
 				index++;
 				insertRecursivo(index, query, params, res)
 			});
