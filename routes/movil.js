@@ -47,7 +47,9 @@ module.exports = function (ejecutar_consulta) {
 			if (digitales.length > 0) {
 				var salidas = [];
 				digitales.forEach(element => {
-					salidas.push([element.galones, element.monetario, req.body.empleado, element.codigo_manguera]);
+					if (element.galones) {
+						salidas.push([element.galones, element.monetario, req.body.empleado, element.codigo_manguera]);
+					}
 				});
 				insertRecursivo(0, consulta, salidas, res);
 			}
@@ -65,7 +67,9 @@ module.exports = function (ejecutar_consulta) {
 			if (analogas.length > 0) {
 				var salidas = [];
 				analogas.forEach(element => {
-					salidas.push([element.mecanicas, element.precio, req.body.empleado, element.codigo_manguera]);
+					if (element.mecanicas) {
+						salidas.push([element.mecanicas, element.precio, req.body.empleado, element.codigo_manguera]);
+					}
 				});
 				insertRecursivo(0, consulta, salidas, res);
 			}
