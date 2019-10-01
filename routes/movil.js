@@ -1,4 +1,17 @@
 module.exports = function (ejecutar_consulta) {
+
+	function insertRecursivo(index, query, params, res) {
+		if (index < params.length) {
+			queryexec.exec(query, params[index], function (data) {
+				index++;
+				insertRecursivo(index, query, params, res)
+			});
+		}
+		else {
+			res.status(200).send(true);
+		}
+	}
+
 	var movil = {
 		obtenerClientes: function (req, res) {
 			var consulta = "SELECT c.codigo_cliente, CONCAT(c.nombres,' ', c.apellido1, ' ', c.apellido2) nombres  FROM cliente c WHERE c.existe = true";
@@ -28,12 +41,34 @@ module.exports = function (ejecutar_consulta) {
 				res.status(200).send(data);
 			});
 		},
+		insertarDigitales: function (req, res) {
+			var consulta = "INSERT INTO digital(galones, monetario, empleado, manguera, fecha, hora) VALUES ($1, $2, $3, $4, current_timestamp, current_timestamp)";
+			var digitales = req.body.digitales;
+			if (digitales.length > 0) {
+				var salidas = [];
+				digitales.forEach(element => {
+					salidas.push([element.galones, element.monetario, req.body.empleado, element.codigo_manguera]);
+				});
+				insertRecursivo(0, consulta, salidas, res);
+			}
+		},
 		insertarAnaloga: function (req, res) {
 			var consulta = "INSERT INTO analoga(mecanicas, precio_unitario, empleado, manguera, fecha, hora) VALUES ($1, $2, $3, $4, current_timestamp, current_timestamp)";
 			var parametros = [req.body.mecanica, req.body.precio_unitario, req.body.empleado, req.body.manguera];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data);
 			});
+		},
+		insertarAnalogas: function (req, res) {
+			var consulta = "INSERT INTO analoga(mecanicas, precio_unitario, empleado, manguera, fecha, hora) VALUES ($1, $2, $3, $4, current_timestamp, current_timestamp)";
+			var analogas = req.body.analogas;
+			if (analogas.length > 0) {
+				var salidas = [];
+				analogas.forEach(element => {
+					salidas.push([element.mecanicas, element.precio, req.body.empleado, element.codigo_manguera]);
+				});
+				insertRecursivo(0, consulta, salidas, res);
+			}
 		},
 		insertarVale: function (req, res) {
 			var consulta = "select insertar_vale($1, $2, $3, $4, $5, $6)";

@@ -40,7 +40,7 @@ module.exports = function (ejecutar_consulta) {
 			});
 		},
 		obtenerTipoEmpleado: function (req, res) {
-			var consulta = `SELECT * FROM tipo_empleado`;
+			var consulta = `SELECT * FROM tipo_empleado WHERE existe = true`;
 			var parametros = [];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
@@ -86,7 +86,7 @@ module.exports = function (ejecutar_consulta) {
 			});
 		},
 		obtenerMangueras: function (req, res) {
-			var consulta = "SELECT m.codigo_manguera, m.descripcion, t.descripcion tipo_combustible FROM manguera m INNER JOIN tipo_combustible t ON m.tipo_combustible = t.codigo_tipo_combustible WHERE m.existe = true";
+			var consulta = "SELECT m.codigo_manguera, m.descripcion, t.codigo_tipo_combustible, t.descripcion tipo_combustible FROM manguera m INNER JOIN tipo_combustible t ON m.tipo_combustible = t.codigo_tipo_combustible WHERE m.existe = true";
 			var parametros = [];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
@@ -154,7 +154,57 @@ module.exports = function (ejecutar_consulta) {
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
 			});
-		}
+		},
+		obtenerTipoCombustible: function (req, res) {
+			var consulta = "SELECT * FROM tipo_combustible WHERE existe = true";
+			var parametros = [];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		eliminarTipoEmpleado: function (req, res) {
+			var consulta = "UPDATE tipo_empleado SET existe = false WHERE codigo_tipo_empleado = $1";
+			var parametros = [req.body.codigo_tipo_empleado];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		eliminarManguera: function (req, res) {
+			var consulta = "UPDATE manguera SET existe = false WHERE codigo_manguera = $1";
+			var parametros = [req.body.codigo_manguera];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		eliminarTipoCombustible: function (req, res) {
+			var consulta = "UPDATE tipo_combustible SET existe = false WHERE codigo_tipo_combustible = $1";
+			var parametros = [req.body.codigo_tipo_combustible];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		insertarManguera: function (req, res) {
+			var consulta = "select insertar_manguera($1,$2)";
+			var parametros = [req.body.descripcion, req.body.tipo_combustible];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		insertarTipoEmpleado: function (req, res) {
+			var consulta = "select insertar_tipo_empleado($1)";
+			var parametros = [req.body.descripcion];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+		insertarTipoCombustible: function (req, res) {
+			var consulta = "select insertar_combustible($1)";
+			var parametros = [req.body.descripcion];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data.rows);
+			});
+		},
+	
 	}
 	return frontend;
 }
