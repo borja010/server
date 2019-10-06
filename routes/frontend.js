@@ -121,8 +121,8 @@ module.exports = function (ejecutar_consulta) {
 			});
 		},
 		obtenerVales: function (req, res) {
-			var consulta = "SELECT * FROM vales($1,$2,$3)";
-			var parametros = [req.body.fecha_inicio, req.body.fecha_final, req.body.estado];
+			var consulta = "SELECT * FROM vales($1,$2,$3,$4)";
+			var parametros = [req.body.fecha_inicio, req.body.fecha_final, req.body.estado, req.body.cliente];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
 			});
@@ -137,20 +137,6 @@ module.exports = function (ejecutar_consulta) {
 		obtenerTotalPagos: function (req, res) {
 			var consulta = "SELECT COUNT(1) FROM (SELECT p.descripcion, p.monto, p.fecha, p.hora, CONCAT(e.nombres,' ', e.apellido1, ' ', e.apellido2) nombres_empleado FROM pago p INNER JOIN empleado e ON p.empleado = e.codigo_empleado WHERE p.vale = $1 ORDER BY p.codigo_pago ASC)a";
 			var parametros = [req.body.codigo_vale];
-			ejecutar_consulta.exec(consulta, parametros, function (data) {
-				res.status(200).send(data.rows);
-			});
-		},
-		obtenerValesCliente: function (req, res) {
-			var consulta = "SELECT * FROM vale WHERE cliente = $1 ORDER BY codigo_vale ASC LIMIT $2 OFFSET $3";
-			var parametros = [req.body.cliente, req.body.limit, req.body.offset];
-			ejecutar_consulta.exec(consulta, parametros, function (data) {
-				res.status(200).send(data.rows);
-			});
-		},
-		obtenerTotalValesCliente: function (req, res) {
-			var consulta = "SELECT COUNT(1) FROM (SELECT * FROM vale WHERE cliente = $1 ORDER BY codigo_vale ASC)a";
-			var parametros = [req.body.cliente];
 			ejecutar_consulta.exec(consulta, parametros, function (data) {
 				res.status(200).send(data.rows);
 			});
@@ -204,7 +190,7 @@ module.exports = function (ejecutar_consulta) {
 				res.status(200).send(data.rows);
 			});
 		},
-	
+
 	}
 	return frontend;
 }

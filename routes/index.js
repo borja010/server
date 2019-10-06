@@ -36,8 +36,6 @@ router.post('/seguro/frontend/obtenerEntradaSalidaFechas/', frontend.obtenerEntr
 router.post('/seguro/frontend/obtenerVales/', frontend.obtenerVales);
 router.post('/seguro/frontend/obtenerPagos/', frontend.obtenerPagos);
 router.post('/seguro/frontend/obtenerTotalPagos/', frontend.obtenerTotalPagos);
-router.post('/seguro/frontend/obtenerValesCliente/', frontend.obtenerValesCliente);
-router.post('/seguro/frontend/obtenerTotalValesCliente/', frontend.obtenerTotalValesCliente);
 router.post('/seguro/frontend/obtenerTipoCombustible/', frontend.obtenerTipoCombustible);
 router.post('/seguro/frontend/eliminarTipoEmpleado/', frontend.eliminarTipoEmpleado);
 router.post('/seguro/frontend/eliminarManguera/', frontend.eliminarManguera);
