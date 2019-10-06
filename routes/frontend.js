@@ -1,5 +1,12 @@
 module.exports = function (ejecutar_consulta) {
 	var frontend = {
+		obtenerClientesMovil: function (req, res) {
+			var consulta = "SELECT c.codigo_cliente, CONCAT(c.nombres,' ', c.apellido1, ' ', c.apellido2) nombres  FROM cliente c WHERE c.existe = true";
+			var parametros = [];
+			ejecutar_consulta.exec(consulta, parametros, function (data) {
+				res.status(200).send(data);
+			});
+		},
 		obtenerClientes: function (req, res) {
 			var consulta = `SELECT codigo_cliente, nombres, CONCAT(apellido1, ' ', apellido2) apellidos, dpi, telefono, celular, nit, genero FROM cliente 
 							WHERE existe = true AND (LOWER(nombres) LIKE COALESCE($1,nombres) OR LOWER(apellido1) LIKE COALESCE($1,apellido1) OR LOWER(apellido2) LIKE COALESCE($1,apellido2) OR LOWER(dpi) LIKE COALESCE($1,dpi))

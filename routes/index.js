@@ -17,6 +17,7 @@ var storage = multer.diskStorage({
     }
 });
 
+router.post('/seguro/frontend/obtenerClientesMovil/', frontend.obtenerClientesMovil);
 router.post('/seguro/frontend/obtenerClientes/', frontend.obtenerClientes);
 router.post('/seguro/frontend/obtenerClientesTotal/', frontend.obtenerClientesTotal);
 router.post('/seguro/frontend/insertarCliente/', frontend.insertarCliente);
